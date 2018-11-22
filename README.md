@@ -1,6 +1,6 @@
 ## GRPC SERVICE TESTS
 
-This repo shows sample of writing tests to verify grpc service from service layer
+This repo shows sample of writing tests to verify grpc service from service layer.
 This repo contains tests to test the "hello world" service which is present in official grpc java repo(https://github.com/grpc/grpc-java/tree/master/examples)
 
 # Start the grpc service
