@@ -1,0 +1,72 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.5'
+        classpath 'com.kncept.junit5.reporter:junit-reporter:1.2.0'
+    }
+}
+
+plugins {
+    id "com.google.protobuf" version "0.8.5"
+    id "java"
+    id "application"
+    id "idea"
+
+}
+
+
+version '1.0-SNAPSHOT'
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.6.0"
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.12.0'
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+    generatedFilesBaseDir = "$projectDir/src/generated"
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile 'io.grpc:grpc-all:1.12.0'
+}
+
+apply plugin: 'com.kncept.junit5.reporter'
+
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/test/java']
+            srcDirs = ['/src/generated/main/grpc']
+            srcDirs = ['/src/generated/main/java']
+        }
+    }
+}
+
+
+
+test {
+    testLogging.showStandardStreams = true
+
+}
+
+startScripts.enabled = false
+
